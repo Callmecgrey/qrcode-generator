@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>QR Code Generator</title>
+</head>
+
+<body>
+    <h1>QR Code Generator</h1>
+    <p>Enter a text or link in the textbox below to generate a QR code:</p>
+    <input type="text" id="input-text" />
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <br />
+    <br />
+    <img id="qr-code" />
+    <br />
+    <br />
+    <a id="download-link" download="qr-code.png" target="_blank">Download QR Code</a>
+
+    <script>
+        function generateQRCode() {
+            // Get the input text
+            const inputText = document.getElementById("input-text").value;
+
+            // Set the QR code image source to the QR code generated from the input text
+            const qrCodeImage = document.getElementById("qr-code");
+            qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${inputText}`;
+
+            // Set the download link href to the QR code image source
+            const downloadLink = document.getElementById("download-link");
+            downloadLink.href = qrCodeImage.src;
+        }
+    </script>
+</body>
+
+</html>
