@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title>System Check</title>
+</head>
+
+<body>
+    <h1>System Check</h1>
+    <form>
+        Website URL: <input type="text" name="websiteUrl" onblur="validateUrl()"><br>
+        <p id="errorMsg"></p>
+        <input type="submit" value="Submit" onclick="systemCheck()">
+    </form>
+    <div id="result"></div>
+    <script>
+        function validateUrl() {
+            var websiteUrl = document.getElementsByName("websiteUrl")[0].value;
+            var errorMsg = document.getElementById("errorMsg");
+            // validate input as a URL
+            var urlPattern = /(http|https):/ / (\w +: {
+                        0,
+                        1
+                    }\
+                    w * ) ? (\S + )(: [0 - 9] + ) ? (/|/ ([\w#!: . ? += & % !-/]))?/;
+                            if (!urlPattern.test(websiteUrl)) {
+                                errorMsg.innerHTML = "Please enter a valid URL";
+                            } else {
+                                errorMsg.innerHTML = "";
+                            }
+                        }
+
+                        function systemCheck() {
+                            var websiteUrl = document.getElementsByName("websiteUrl")[0].value;
+                            var resultDiv = document.getElementById("result");
+                            var errorMsg = document.getElementById("errorMsg");
+
+                            // check all systems on website
+                            var systemsRunningProperly = true;
+                            // check server connection
+                            if (!checkServerConnection(websiteUrl)) {
+                                systemsRunningProperly = false;
+                            }
+                            // check database connection
+                            if (!checkDatabaseConnection(websiteUrl)) {
+                                systemsRunningProperly = false;
+                            }
+                            // check server memory usage
+                            if (!checkServerMemoryUsage(websiteUrl)) {
+                                systemsRunningProperly = false;
+                            }
+                            // check server CPU usage
+                            if (!checkServerCPUUsage(websiteUrl)) {
+                                systemsRunningProperly = false;
+                            }
+
+                            // display result
+                            if (systemsRunningProperly) {
+                                errorMsg.innerHTML = "";
+                                resultDiv.innerHTML = "<p style='color: green'>All systems are running properly.</p>";
+                            } else {
+                                resultDiv.innerHTML = "<p style='color: red'>One or more systems are offline.</p>";
+                            }
+                        }
+    </script>
+
+</body>
+
+</html>
