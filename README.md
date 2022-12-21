@@ -1,2 +1,2 @@
-# barcode-generator
+# qrcode-generator
  
